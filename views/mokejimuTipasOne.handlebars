@@ -1,0 +1,19 @@
+<h1>Informacija apie pasirinkta mokejimu tipa: </h1>
+
+    <form action="/mokejimuTipai" method="POST">
+{{#if mokejimuTipasOne}}
+<input type="hidden" name="id" value="{{mokejimuTipasOne.id}}">
+{{/if}}
+    Pavadinimas: <input type="text" name="pavadinimas" {{#if mokejimuTipasOne}}value="{{mokejimuTipasOne.pavadinimas}}"{{/if}}>
+    ID: <input disabled name="pavarde" {{#if mokejimuTipasOne}} value="{{mokejimuTipasOne.id}}" {{/if}}>
+    <input type="submit" value="Save">
+    </form>
+
+{{!-- {{else}}
+ <h1>You stupid!</h1>
+{{/if}} --}}
+
+{{!-- {{#with zmogus}}
+<a href="/redagavimas/{{id}}">Redaguoti duomenys</a>
+{{/with}} --}}
+    <a href="/">Go back</a>

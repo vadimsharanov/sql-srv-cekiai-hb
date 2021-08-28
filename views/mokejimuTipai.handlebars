@@ -1,0 +1,25 @@
+<a href="/naujasMokejimuTipas.html">Prideti mokejimu tipa</a>
+        <table id="t">
+            <thead>
+                <tr>
+                    <th style="border: 1px solid black;">ID</th>
+                    <th>Pavadinimas</th>
+                </tr>
+                </thead>
+                <tbody>
+            {{#each mokejimuTipai}}
+            <tr>
+                <td> <a href="/mokejimuTipasOne/{{id}}">{{id}}</a></td>
+                <td> <a href="/mokejimuTipasOne/{{id}}">{{pavadinimas}}</a></td>
+                <td> {{alga}}</td>
+                 </td>
+                 <td>
+
+                <a href="/mokejimuTipasOne/{{id}}/delete">Sudeginti</a>
+                 </td>
+                
+                </tr>
+            {{/each}}
+            </table>
+            </tbody>
+<button><a href="/">Go back</a></button>

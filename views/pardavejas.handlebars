@@ -1,0 +1,19 @@
+<h1>Informacija apie pasirinkta pardaveja: </h1>
+
+    <form action="/pardavejas" method="POST">
+{{#if pardavejas}}
+<input type="hidden" name="id" value="{{pardavejas.id}}">
+{{/if}}
+    Pavadinimas: <input type="text" name="pavadinimas" {{#if pardavejas}}value="{{pardavejas.pavadinimas}}"{{/if}}>
+    ID: <input disabled name="pavarde" {{#if pardavejas}} value="{{pardavejas.id}}" {{/if}}>
+    <input type="submit" value="Save">
+    </form>
+
+{{!-- {{else}}
+ <h1>You stupid!</h1>
+{{/if}} --}}
+
+{{!-- {{#with zmogus}}
+<a href="/redagavimas/{{id}}">Redaguoti duomenys</a>
+{{/with}} --}}
+    <a href="/">Go back</a>

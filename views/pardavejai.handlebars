@@ -1,0 +1,25 @@
+<a href="/naujasPardavejas.html">Prideti pardaveja</a>
+        <table id="t">
+            <thead>
+                <tr>
+                    <th style="border: 1px solid black;">ID</th>
+                    <th>Pavadinimas</th>
+                </tr>
+                </thead>
+                <tbody>
+            {{#each pardavejai}}
+            <tr>
+                <td> <a href="/pardavejas/{{id}}">{{id}}</a></td>
+                <td> <a href="/pardavejas/{{id}}">{{pavadinimas}}</a></td>
+                <td> {{alga}}</td>
+                 </td>
+                 <td>
+
+                <a href="/pardavejas/{{id}}/delete">Sudeginti</a>
+                 </td>
+                
+                </tr>
+            {{/each}}
+            </table>
+            </tbody>
+<button><a href="/">Go back</a></button>
