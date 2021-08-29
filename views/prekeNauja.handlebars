@@ -1,0 +1,27 @@
+
+    <form action="/prekes" method="POST" >
+    Cekiai ID: <input type="number" name="cekiaiId" ><br><br>
+             
+    Pavadinimas: <input type="text" name="pavadinimas" > <br> <br>
+    Kaina: <input type="number" name="kaina" ><br><br>
+    Islaidu tipai ID: <input type="number" name="islaiduTipaiId" > <br><br>
+     <table>
+            <thead>
+                <tr> <b style="font-size: 20px;">Islaidu tipu lentele</b>
+                    <th style="border: 1px solid black;">ID</th>
+                    <th>Pavadinimas</th>
+                </tr>
+                </thead>
+                <tbody>
+            {{#each islaiduTipai}}
+            <tr>
+                <td> <a href="/islaiduTipasOne/{{id}}">{{id}}</a></td>
+                <td> <a href="/islaiduTipasOne/{{id}}">{{pavadinimas}}</a></td>
+                <td> {{alga}}</td>
+                 </td>
+                </tr>
+            {{/each}}
+            </table> <br> 
+    <input type="submit" value="Save">
+    </form>
+    <a href="/prekes">Go back</a>

@@ -1,0 +1,30 @@
+<a href="/prekeNauja">Prideti nauja preke</a>
+        <table id="t">
+            <thead>
+                <tr>
+                    <th style="border: 1px solid black;">ID</th>
+                    <th style="border: 1px solid black;">Cekiai ID</th>
+                    <th>Pavadinimas</th>
+                    <th>Kaina</th>
+                </tr>
+                </thead>
+                <tbody>
+            {{#each prekes}}
+            <tr>
+                <td> <a href="/prekeOne/{{id}}">{{id}}</a></td>
+                <td style="text-align: center;" > <a href="/prekeOne/{{id}}">{{cekiai_ID}}</a></td>
+                <td> <a href="/prekeOne/{{id}}">{{pavadinimas}}</a></td>
+                <td> <a href="/prekeOne/{{id}}">{{kaina}}</a></td>
+                <td> <a href="/prekeOne/{{id}}">{{islaidu_tipai_ID}}</a></td>
+                <td> {{alga}}</td>
+                 </td>
+                 <td>
+
+                <a href="/prekeOne/{{id}}/delete">Sudeginti</a>
+                 </td>
+                
+                </tr>
+            {{/each}}
+            </table>
+            </tbody>
+<button><a href="/">Go back</a></button>

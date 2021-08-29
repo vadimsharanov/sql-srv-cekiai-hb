@@ -1,0 +1,39 @@
+<h1>Informacija apie pasirinkta preke: </h1>
+
+    <form action="/prekes" method="POST">
+{{#if prekeOne}}
+<input type="hidden" name="id" value="{{prekeOne.id}}">
+{{/if}}
+    ID: <input disabled name="pavarde" {{#if prekeOne}} value="{{prekeOne.id}}" {{/if}}> <br><br>
+    Cekiai ID: <input  name="cekiaiId"  {{#if prekeOne}} value="{{prekeOne.cekiai_id}}" {{/if}}> <br><br>
+    Pavadinimas: <input type="text" name="pavadinimas" {{#if prekeOne}}value="{{prekeOne.pavadinimas}}"{{/if}}> <br><br>
+    Kaina: <input type="number" name="kaina" {{#if prekeOne}}value="{{prekeOne.kaina}}"{{/if}}><br><br>
+    Islaidu tipai: <input type="number" name="islaiduTipaiId" {{#if prekeOne}} value="{{prekeOne.islaidu_tipai_id}}"{{/if}}><br><br>
+    <table>
+            <thead>
+                <tr> <b style="font-size: 20px;">Islaidu tipu lentele</b>
+                    <th style="border: 1px solid black;">ID</th>
+                    <th>Pavadinimas</th>
+                </tr>
+                </thead>
+                <tbody>
+            {{#each islaiduTipai}}
+            <tr>
+                <td> <a href="/islaiduTipasOne/{{id}}">{{id}}</a></td>
+                <td> <a href="/islaiduTipasOne/{{id}}">{{pavadinimas}}</a></td>
+                <td> {{alga}}</td>
+                 </td>
+                </tr>
+            {{/each}}
+            </table> <br> 
+    <input type="submit" value="Save">
+    </form>
+
+{{!-- {{else}}
+ <h1>You stupid!</h1>
+{{/if}} --}}
+
+{{!-- {{#with zmogus}}
+<a href="/redagavimas/{{id}}">Redaguoti duomenys</a>
+{{/with}} --}}
+    <a href="/prekes">Go back</a>

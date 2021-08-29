@@ -4,6 +4,7 @@ import { readFile, writeFile } from "fs/promises";
 import { deleteIslaiduTipasOne, getIslaiduTipai, getIslaiduTipasOne, saveIslaiduTipasOne } from "./db/islaiduTipai.js";
 import {getMokejimuTipai, getMokejimuTipasOne, saveMokejimuTipasOne, deleteMokejimuTipasOne } from "./db/mokejimuTipai.js";
 import {getPardavejai, getVienasPardavejas, savePardavejas, deletePardavejas} from "./db/pardavejaiDb.js";
+import { deletePrekeOne, getPrekeOne, getPrekes, savePrekeOne } from "./db/prekes.js";
 
 const SERVER_PORT = 3000;
 const WEB_DIR = "web";
@@ -189,6 +190,73 @@ app.get("/islaiduTipasOne/:id/delete", async (req, res) => { // padarom linka, i
 }
 });
 //
+
+//prekes
+app.get("/prekes", async function (req, res) {  // generuojame zmoniu sarasa
+    try {
+    let prekes = await getPrekes() 
+    res.render("prekes", { prekes , title: "Prekiu sarasas"});
+}
+    catch (err) {
+        console.log("Ivyko klaida:", err);
+        res.status(500).end(`<html><body><${err.message}/body></html>`)
+}
+})
+
+app.get("/prekeOne/:id", async (req, res) => { // sukuriame atskira puslapy, kiekvienam zmogui
+    try {
+        let prekeOne = null;
+        let islaiduTipai = null;
+        if (req.params.id) {
+        prekeOne = await getPrekeOne(req.params.id)
+        islaiduTipai = await getIslaiduTipai(req.params.id)
+
+}
+res.render("prekeOne", { prekeOne, islaiduTipai, title: "Prekes informacija"});
+}
+    catch (err) {
+    console.log(err);
+    res.status(500).end(await readFile(KLAIDA, {
+        encoding:"utf-8"
+    }));
+}
+});
+
+app.get("/prekeNauja", async function (req, res) {  // generuojame zmoniu sarasa
+    try {
+        let islaiduTipai = await getIslaiduTipai() 
+    res.render("prekeNauja", { islaiduTipai, title: "Prekiu sarasas"});
+}
+    catch (err) {
+        console.log("Ivyko klaida:", err);
+        res.status(500).end(`<html><body><${err.message}/body></html>`)
+}
+})
+app.post("/prekes", async (req, res) => {  // naujo zmogaus kurimas
+    try {
+        console.log(req.body);
+        await savePrekeOne(req.body)
+        res.redirect("/prekes")
+}
+catch (err) {
+    console.log(err);
+        res.status(500).end(await readFile(KLAIDA, {
+        encoding:"utf-8"
+    }));
+}
+})
+app.get("/prekes/:id/delete", async (req, res) => { // padarom linka, i kuri nuejus zmogus trinamas
+    try {
+        await deletePrekeOne(req.params.id)
+        res.redirect("/prekes")
+}
+    catch (err) {
+        console.log(err);
+    res.status(500).end(await readFile(KLAIDA, {
+        encoding:"utf-8"
+    }));
+}
+});
 
 
 
