@@ -1,6 +1,7 @@
 import express from "express";
 import exphbs from "express-handlebars";
 import { readFile, writeFile } from "fs/promises";
+import { deleteIslaiduTipasOne, getIslaiduTipai, getIslaiduTipasOne, saveIslaiduTipasOne } from "./db/islaiduTipai.js";
 import {getMokejimuTipai, getMokejimuTipasOne, saveMokejimuTipasOne, deleteMokejimuTipasOne } from "./db/mokejimuTipai.js";
 import {getPardavejai, getVienasPardavejas, savePardavejas, deletePardavejas} from "./db/pardavejaiDb.js";
 
@@ -29,10 +30,12 @@ app.use(express.urlencoded( {
 }))
 app.use(express.json());
 
+
+// Pardavejai
 app.get("/pardavejai", async function (req, res) {  // generuojame zmoniu sarasa
     try {
     let pardavejai = await getPardavejai() 
-    res.render("pardavejai", { pardavejai , title: "Pilnas zmoniu sarasas"});
+    res.render("pardavejai", { pardavejai , title: "Pardaveju sarasas"});
 }
     catch (err) {
         console.log("Ivyko klaida:", err);
@@ -80,12 +83,13 @@ app.get("/pardavejas/:id/delete", async (req, res) => { // padarom linka, i kuri
     }));
 }
 });
+//
 
-
+// Mokejimu Tipai
 app.get("/mokejimuTipai", async function (req, res) {  // generuojame zmoniu sarasa
     try {
     let mokejimuTipai = await getMokejimuTipai() 
-    res.render("mokejimuTipai", { mokejimuTipai , title: "Mokejimu tipu zmoniu sarasas"});
+    res.render("mokejimuTipai", { mokejimuTipai , title: "Mokejimu tipu sarasas"});
 }
     catch (err) {
         console.log("Ivyko klaida:", err);
@@ -132,6 +136,76 @@ app.get("/mokejimuTipasOne/:id/delete", async (req, res) => { // padarom linka, 
     }));
 }
 });
+
+// Islaidu Tipai
+app.get("/islaiduTipai", async function (req, res) {  // generuojame zmoniu sarasa
+    try {
+    let islaiduTipai = await getIslaiduTipai() 
+    res.render("islaiduTipai", { islaiduTipai , title: "Islaidu tipu sarasas"});
+}
+    catch (err) {
+        console.log("Ivyko klaida:", err);
+        res.status(500).end(`<html><body><${err.message}/body></html>`)
+}
+})
+app.get("/islaiduTipasOne/:id", async (req, res) => { // sukuriame atskira puslapy, kiekvienam zmogui
+    try {
+        let islaiduTipasOne = null;
+        if (req.params.id) {
+        islaiduTipasOne = await getIslaiduTipasOne(req.params.id)
+}
+    res.render("islaiduTipasOne", { islaiduTipasOne, title: "Islaidu tipo  informacija"});
+}
+    catch (err) {
+    console.log(err);
+    res.status(500).end(await readFile(KLAIDA, {
+        encoding:"utf-8"
+    }));
+}
+});
+
+app.post("/islaiduTipai", async (req, res) => {  // naujo zmogaus kurimas
+    try {
+        await saveIslaiduTipasOne(req.body)
+        res.redirect("/islaiduTipai")
+}
+catch (err) {
+    console.log(err);
+        res.status(500).end(await readFile(KLAIDA, {
+        encoding:"utf-8"
+    }));
+}
+})
+app.get("/islaiduTipasOne/:id/delete", async (req, res) => { // padarom linka, i kuri nuejus zmogus trinamas
+    try {
+        await deleteIslaiduTipasOne(req.params.id)
+        res.redirect("/islaiduTipai")
+}
+    catch (err) {
+        console.log(err);
+    res.status(500).end(await readFile(KLAIDA, {
+        encoding:"utf-8"
+    }));
+}
+});
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // // app.get("/redagavimas/:id", async (req, res) => { // zmogaus redagavimas
 // //     try {
 // //         let zmones = await readFile(DATA_FILE, {

@@ -1,0 +1,25 @@
+<a href="/naujasIslaiduTipas.html">Prideti islaidu tipa</a>
+        <table id="t">
+            <thead>
+                <tr>
+                    <th style="border: 1px solid black;">ID</th>
+                    <th>Pavadinimas</th>
+                </tr>
+                </thead>
+                <tbody>
+            {{#each islaiduTipai}}
+            <tr>
+                <td> <a href="/islaiduTipasOne/{{id}}">{{id}}</a></td>
+                <td> <a href="/islaiduTipasOne/{{id}}">{{pavadinimas}}</a></td>
+                <td> {{alga}}</td>
+                 </td>
+                 <td>
+
+                <a href="/islaiduTipasOne/{{id}}/delete">Sudeginti</a>
+                 </td>
+                
+                </tr>
+            {{/each}}
+            </table>
+            </tbody>
+<button><a href="/">Go back</a></button>

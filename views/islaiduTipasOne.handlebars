@@ -1,0 +1,19 @@
+<h1>Informacija apie pasirinkta islaidu tipa: </h1>
+
+    <form action="/islaiduTipai" method="POST">
+{{#if islaiduTipasOne}}
+<input type="hidden" name="id" value="{{islaiduTipasOne.id}}">
+{{/if}}
+    Pavadinimas: <input type="text" name="pavadinimas" {{#if islaiduTipasOne}}value="{{islaiduTipasOne.pavadinimas}}"{{/if}}>
+    ID: <input disabled name="pavarde" {{#if islaiduTipasOne}} value="{{islaiduTipasOne.id}}" {{/if}}>
+    <input type="submit" value="Save">
+    </form>
+
+{{!-- {{else}}
+ <h1>You stupid!</h1>
+{{/if}} --}}
+
+{{!-- {{#with zmogus}}
+<a href="/redagavimas/{{id}}">Redaguoti duomenys</a>
+{{/with}} --}}
+    <a href="/">Go back</a>
