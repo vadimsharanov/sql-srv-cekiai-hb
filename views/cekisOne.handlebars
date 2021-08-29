@@ -1,0 +1,34 @@
+<table id="t">
+            <thead>
+                <tr>
+                    <th style="border: 1px solid black;">ID</th>
+                    <th>Data</th>
+                    <th>Prekes pavadinimas</th>
+                    <th>Prekes Kaina</th>
+                    <th>Islaidu tipas</th>
+                    <th>Pardavejas</th>
+                    <th>Mokejimo tipas</th>
+
+                </tr>
+                </thead>
+                <tbody>
+            <tr>
+                {{#each cekisOne}}
+                <td> <a href="/prekeOne/{{prekesId}}/">{{id}}</a></td>
+                <td> <a href="/prekeOne/{{prekesId}}">{{data}}</a></td>
+                <td> <a href="/prekeOne/{{prekesId}}">{{prekesPavadinimas}}</a></td>
+                <td> <a href="/prekeOne/{{prekesId}}">{{kaina}}</a></td>
+                <td> <a href="/prekeOne/{{prekesId}}">{{islaiduTipaiPavadinimas}}</a></td>
+                <td> <a href="/prekeOne/{{prekesId}}">{{pavadinimas}}</a></td>
+                <td> <a href="/prekeOne/{{prekesId}}">{{cekiaiMokejimuTipai}}</a></td>
+                </td>
+                 <td>
+
+                <a href="/prekeOne/{{prekesId}}/delete">Sudeginti</a>
+                 </td>
+                
+                </tr>
+                {{/each}}
+            </table>
+            </tbody>
+<button><a href="/">Go back</a></button>

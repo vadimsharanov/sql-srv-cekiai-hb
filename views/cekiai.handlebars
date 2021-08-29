@@ -1,0 +1,31 @@
+<a href="/prekeNauja">Prideti nauja ceki</a>
+        <table id="t">
+            <thead>
+                <tr>
+                    <th>Cekio ID</th>
+                    <th>Data</th>
+                    <th>Bendra suma</th>
+                    <th>Mokejimo tipas</th>
+                    <th>Mokejimo tipas</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each cekiai}}
+            <tr>
+                <td> <a href="/cekisOne/{{id}}">{{id}}</a></td>
+                <td> <a href="/cekisOne/{{id}}">there should be data</a></td>
+                <td> <a href="/cekisOne/{{id}}">there should be sum</a></td>
+                <td> <a href="/cekisOne/{{id}}">{{cekiaiMokejimuTipai}}</a></td>
+                {{!-- <td> <a href="/cekisOne/{{id}}">{{cekiai.sum}}</a></td> --}}
+                </td>
+                 <td>
+
+                <a href="/cekisOne/{{id}}/delete">Sudeginti</a>
+                {{/each}}
+                 </td>
+                
+                
+                </tr>
+            </table>
+            </tbody>
+<button><a href="/">Go back</a></button>

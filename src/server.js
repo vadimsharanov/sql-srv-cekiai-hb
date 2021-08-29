@@ -1,6 +1,7 @@
 import express from "express";
 import exphbs from "express-handlebars";
 import { readFile, writeFile } from "fs/promises";
+import { getCekiai, getCekisOne } from "./db/cekiai.js";
 import { deleteIslaiduTipasOne, getIslaiduTipai, getIslaiduTipasOne, saveIslaiduTipasOne } from "./db/islaiduTipai.js";
 import {getMokejimuTipai, getMokejimuTipasOne, saveMokejimuTipasOne, deleteMokejimuTipasOne } from "./db/mokejimuTipai.js";
 import {getPardavejai, getVienasPardavejas, savePardavejas, deletePardavejas} from "./db/pardavejaiDb.js";
@@ -245,7 +246,7 @@ catch (err) {
     }));
 }
 })
-app.get("/prekes/:id/delete", async (req, res) => { // padarom linka, i kuri nuejus zmogus trinamas
+app.get("/prekeOne/:id/delete", async (req, res) => { // padarom linka, i kuri nuejus zmogus trinamas
     try {
         await deletePrekeOne(req.params.id)
         res.redirect("/prekes")
@@ -257,6 +258,41 @@ app.get("/prekes/:id/delete", async (req, res) => { // padarom linka, i kuri nue
     }));
 }
 });
+
+app.get("/cekiai", async function (req, res) {  // generuojame zmoniu sarasa
+    try {
+    let pardavejai = await getPardavejai() 
+    let mokejimuTipai = await getMokejimuTipai() 
+    let islaiduTipai = await getIslaiduTipai()
+    let prekes = await getPrekes()
+    let cekiai = await getCekiai() 
+    res.render("cekiai", { pardavejai, mokejimuTipai, islaiduTipai, prekes, cekiai, title: "Cekiu sarasas"});
+}
+    catch (err) {
+        console.log("Ivyko klaida:", err);
+        res.status(500).end(`<html><body><${err.message}/body></html>`)
+}
+})
+
+app.get("/cekisOne/:id", async (req, res) => { // sukuriame atskira puslapy, kiekvienam zmogui
+    try {
+        let cekisOne = null;
+        let islaiduTipai = null;
+        if (req.params.id) {
+        cekisOne = await getCekisOne(req.params.id);
+        // islaiduTipai = await getIslaiduTipai(req.params.id)
+
+}
+res.render("cekisOne", { cekisOne, title: "Cekio informacija"});
+}
+    catch (err) {
+    console.log(err);
+    res.status(500).end(await readFile(KLAIDA, {
+        encoding:"utf-8"
+    }));
+}
+});
+
 
 
 
