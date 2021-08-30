@@ -1,6 +1,16 @@
 
     <form action="/prekes" method="POST" >
     Cekiai ID: <input type="number" name="cekiaiId" ><br><br>
+        <table>  <tr>
+                <tr> <b style="font-size: 20px;">Cekiui ID sarasas</b>
+                </tr>
+
+                    {{#each cekiai}}
+            <tr>
+                <td> <a style="font-size: 20px" href="/cekisOne/{{id}}">{{id}}</a></td>
+                {{/each}}
+ 
+    </table><br><br>
              
     Pavadinimas: <input type="text" name="pavadinimas" > <br> <br>
     Kaina: <input type="text" name="kaina" ><br><br>

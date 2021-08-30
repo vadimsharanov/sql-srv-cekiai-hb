@@ -28,7 +28,7 @@ async function getCekiai() {
         let  {results: r} = await query(
         connection,
         `
-        select  cekiai.id, cekiai.data,  prekes.pavadinimas as prekesPavadinimas,
+        select  sum(prekes.kaina) as sumKaina ,cekiai.id, cekiai.data,  prekes.pavadinimas as prekesPavadinimas,
         prekes.kaina,
         islaidu_tipai.pavadinimas as islaiduTipaiPavadinimas,
         pardavejai.pavadinimas,
@@ -45,7 +45,7 @@ async function getCekiai() {
             suma += r[i].kaina
         }
         // r.sum = suma
-        return r;
+        return r
 }
 finally {
    connection.end();
@@ -98,7 +98,7 @@ try {
     let  {results: r} = await query(
     connection,
     `delete 
-    from prekes
+    from cekiai
     where id = ?`, 
     [id]);
     return;

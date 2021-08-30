@@ -1,4 +1,18 @@
-<a href="/prekeNauja">Prideti nauja ceki</a>
+<style>
+    a {
+        font-size: 25px;
+        display: flex;
+        padding: 10px;
+        justify-content: center;
+        
+    }
+    th {
+        font-size: 30px;
+        padding: 15px;
+        
+    }
+</style>
+<a href="/cekisNaujas" style="justify-content: left;">Prideti nauja ceki</a>
         <table id="t">
             <thead>
                 <tr>
@@ -13,8 +27,8 @@
                 {{#each cekiai}}
             <tr>
                 <td> <a href="/cekisOne/{{id}}">{{id}}</a></td>
-                <td> <a href="/cekisOne/{{id}}">there should be data</a></td>
-                <td> <a href="/cekisOne/{{id}}">there should be sum</a></td>
+                <td> <a href="/cekisOne/{{id}}">{{ dateFormat data}}</</a></td>
+                <td> <a href="/cekisOne/{{id}}">{{sumKaina}}</a></td>
                 <td> <a href="/cekisOne/{{id}}">{{cekiaiMokejimuTipai}}</a></td>
                 {{!-- <td> <a href="/cekisOne/{{id}}">{{cekiai.sum}}</a></td> --}}
                 </td>

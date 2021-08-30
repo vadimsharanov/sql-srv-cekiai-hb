@@ -6,6 +6,16 @@
 {{/if}}
     ID: <input disabled name="pavarde" {{#if prekeOne}} value="{{prekeOne.id}}" {{/if}}> <br><br>
     Cekiai ID: <input  name="cekiaiId"  {{#if prekeOne}} value="{{prekeOne.cekiai_id}}" {{/if}}> <br><br>
+    <table>  <tr>
+                <tr> <b style="font-size: 20px;">Cekiui ID sarasas</b>
+                </tr>
+
+                    {{#each cekiai}}
+            <tr>
+                <td> <a style="font-size: 20px;" href="/cekisOne/{{id}}">{{id}}</a></td>
+                {{/each}}
+ 
+    </table><br><br>
     Pavadinimas: <input type="text" name="pavadinimas" {{#if prekeOne}}value="{{prekeOne.pavadinimas}}"{{/if}}> <br><br>
     Kaina: <input type="text" name="kaina" {{#if prekeOne}}value="{{prekeOne.kaina}}"{{/if}}><br><br>
     Islaidu tipai: <input type="number" name="islaiduTipaiId" {{#if prekeOne}} value="{{prekeOne.islaidu_tipai_id}}"{{/if}}><br><br>
