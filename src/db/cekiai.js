@@ -28,12 +28,10 @@ async function getCekiai() {
         let  {results: r} = await query(
         connection,
         `
-        select cekiai.id, data, pardavejai.pavadinimas as pardavejaiPavadinimas, mokejimu_tipai.pavadinimas, sum(prekes.kaina) as sumKaina
-        from cekiai,prekes,mokejimu_tipai, pardavejai
-        where prekes.cekiai_id = cekiai.id and
-        mokejimu_tipai.id = cekiai.mokejimu_tipai_id and
-        cekiai.pardavejai_id = pardavejai.id
-        group by cekiai.id
+        select cekiai.id, data, pardavejai.pavadinimas as pardavejaiPavadinimas, mokejimu_tipai.pavadinimas as mokejimuTipaiPavadinimas, sum(prekes.kaina) as sumKaina, count(prekes.id) as prekiuKiekis
+        from cekiai left join prekes on prekes.cekiai_id = cekiai.id join mokejimu_tipai on mokejimu_tipai.id = cekiai.mokejimu_tipai_id
+        join pardavejai on cekiai.pardavejai_id = pardavejai.id 
+        group by cekiai.id, data, pardavejai.pavadinimas, mokejimu_tipai.pavadinimas
         `);
         return r;
 }

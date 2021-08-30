@@ -29,6 +29,12 @@ app.engine("handlebars", exphbs({
                 return `${year}-${month}-${day}`
             }
 
+        },
+        kainaZero (kaina) {
+            if (kaina === null){
+                kaina = 0;
+            }
+            return kaina
         }
     }
 }));

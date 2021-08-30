@@ -21,16 +21,18 @@
                     <th>Pardavejas</th>
                     <th>Mokejimo tipas</th>
                     <th>Bendra suma</th>
+                    <th>Prekiu kiekis</th>
                 </tr>
                 </thead>
                 <tbody>
                 {{#each cekiai}}
             <tr>
                 <td> <a href="/cekisOne/{{id}}">{{id}}</a></td>
-                <td> <a href="/cekisOne/{{id}}">{{ dateFormat data}}</</a></td>
+                <td> <a href="/cekisOne/{{id}}">{{dateFormat data}}</</a></td>
                 <td> <a href="/cekisOne/{{id}}">{{pardavejaiPavadinimas}}</a></td>
-                <td> <a href="/cekisOne/{{id}}">{{pavadinimas}}</a></td>
-                <td> <a href="/cekisOne/{{id}}">{{sumKaina}}</a></td>
+                <td> <a href="/cekisOne/{{id}}">{{mokejimuTipaiPavadinimas}}</a></td>
+                <td> <a href="/cekisOne/{{id}}">{{kainaZero sumKaina}}</a></td>
+                <td> <a href="/cekisOne/{{id}}">{{prekiuKiekis}}</a></td>
                 {{!-- <td> <a href="/cekisOne/{{id}}">{{cekiai.sum}}</a></td> --}}
                 </td>
                  <td>
