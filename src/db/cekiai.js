@@ -28,24 +28,14 @@ async function getCekiai() {
         let  {results: r} = await query(
         connection,
         `
-        select  sum(prekes.kaina) as sumKaina ,cekiai.id, cekiai.data,  prekes.pavadinimas as prekesPavadinimas,
-        prekes.kaina,
-        islaidu_tipai.pavadinimas as islaiduTipaiPavadinimas,
-        pardavejai.pavadinimas,
-        cekiai.mokejimu_tipai.pavadinimas as cekiaiMokejimuTipai
-        from prekes, islaidu_tipai, cekiai, pardavejai, mokejimu_tipai
-        where cekiai.id = prekes.cekiai_id and
-        prekes.islaidu_tipai_id = islaidu_tipai.id and
-        cekiai.pardavejai_id = pardavejai.id and
-        cekiai.mokejimu_tipai_id = mokejimu_tipai.id
+        select cekiai.id, data, pardavejai.pavadinimas as pardavejaiPavadinimas, mokejimu_tipai.pavadinimas, sum(prekes.kaina) as sumKaina
+        from cekiai,prekes,mokejimu_tipai, pardavejai
+        where prekes.cekiai_id = cekiai.id and
+        mokejimu_tipai.id = cekiai.mokejimu_tipai_id and
+        cekiai.pardavejai_id = pardavejai.id
         group by cekiai.id
         `);
-        let suma = 0;
-        for (let i=0; i <r.length; i++) {
-            suma += r[i].kaina
-        }
-        // r.sum = suma
-        return r
+        return r;
 }
 finally {
    connection.end();
@@ -109,44 +99,25 @@ console.log('connection ended');
         }   
 }
 
-async function saveCekiaiOne(prekeOne) {
+async function saveCekiaiOne(cekiaiOne) {
     let connection;  
-    if (typeof prekeOne.id === "undefined") {
+    if (typeof cekiaiOne.id === "undefined") {
         try {
             connection = mysql.createConnection(options)
             connection.connect();
             await query(
             connection,
             `insert into 
-            prekes
-            (cekiai_id,pavadinimas,kaina, islaidu_tipai_id)
-            values (?,?,?,?)`, 
-            [prekeOne.cekiaiId, prekeOne.pavadinimas, prekeOne.kaina, prekeOne.islaiduTipaiId]);
+            cekiai
+            (Data,pardavejai_ID,mokejimu_tipai_ID)
+            values (?,?,?)`, 
+            [cekiaiOne.cekioData, cekiaiOne.cekioPardavejai, cekiaiOne.cekioMokejimoTipai]);
             return ;
         }
         finally {
         connection.end();
         console.log('connection ended');
         }  
-    }
-    else {
-        prekeOne.id = parseInt(prekeOne.id)
-        let connection;    
-    try {
-        connection = mysql.createConnection(options)
-        connection.connect();
-        await query(
-        connection,
-        `update prekes
-        set cekiai_id = ?, pavadinimas = ?, kaina = ?, islaidu_tipai_id = ?
-        where id = ?`, 
-        [prekeOne.cekiaiId, prekeOne.pavadinimas, prekeOne.kaina, prekeOne.islaiduTipaiId, prekeOne.id]);
-        return;
-    }
-    finally {
-    connection.end();
-    console.log('connection ended');
-    }   
     }
 }
 export {getCekiai, getCekisOne, saveCekiaiOne, deleteCekiaiOne }

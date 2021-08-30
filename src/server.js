@@ -1,7 +1,7 @@
 import express from "express";
 import exphbs from "express-handlebars";
 import { readFile, writeFile } from "fs/promises";
-import { deleteCekiaiOne, getCekiai, getCekisOne } from "./db/cekiai.js";
+import { deleteCekiaiOne, getCekiai, getCekisOne, saveCekiaiOne } from "./db/cekiai.js";
 import { deleteIslaiduTipasOne, getIslaiduTipai, getIslaiduTipasOne, saveIslaiduTipasOne } from "./db/islaiduTipai.js";
 import {getMokejimuTipai, getMokejimuTipasOne, saveMokejimuTipasOne, deleteMokejimuTipasOne } from "./db/mokejimuTipai.js";
 import {getPardavejai, getVienasPardavejas, savePardavejas, deletePardavejas} from "./db/pardavejaiDb.js";
@@ -255,6 +255,7 @@ app.get("/prekeNauja", async function (req, res) {  // generuojame zmoniu sarasa
         res.status(500).end(`<html><body><${err.message}/body></html>`)
 }
 })
+
 app.post("/prekes", async (req, res) => {  // naujo zmogaus kurimas
     try {
         console.log(req.body);
@@ -268,6 +269,7 @@ catch (err) {
     }));
 }
 })
+
 app.get("/prekeOne/:id/delete", async (req, res) => { // padarom linka, i kuri nuejus zmogus trinamas
     try {
         await deletePrekeOne(req.params.id)
@@ -327,8 +329,11 @@ app.get("/cekisOne/:id/delete", async (req, res) => { // padarom linka, i kuri n
 
 app.get("/cekisNaujas", async function (req, res) {  // generuojame zmoniu sarasa
     try {
-        let islaiduTipai = await getIslaiduTipai() 
-    res.render("prekeNauja", { islaiduTipai, title: "Prekiu sarasas"});
+        let pardavejai = null;
+        let mokejimuTipai = null;
+        pardavejai = await getPardavejai();
+        mokejimuTipai = await getMokejimuTipai()  
+    res.render("cekisNaujas", { pardavejai, mokejimuTipai, title: "Prekiu sarasas"});
 }
     catch (err) {
         console.log("Ivyko klaida:", err);
@@ -336,6 +341,19 @@ app.get("/cekisNaujas", async function (req, res) {  // generuojame zmoniu saras
 }
 })
 
+app.post("/cekiai", async (req, res) => {  // naujo zmogaus kurimas
+    try {
+        console.log(req.body);
+        await saveCekiaiOne(req.body)
+        res.redirect("/cekiai")
+}
+catch (err) {
+    console.log(err);
+        res.status(500).end(await readFile(KLAIDA, {
+        encoding:"utf-8"
+    }));
+}
+})
 
 
 

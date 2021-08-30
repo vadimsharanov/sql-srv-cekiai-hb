@@ -1,27 +1,31 @@
 
-    <form action="/prekes" method="POST" >
-    Cekiai ID: <input type="number" name="cekiaiId" ><br><br>
-             
-    Pavadinimas: <input type="text" name="pavadinimas" > <br> <br>
-    Kaina: <input type="number" name="kaina" ><br><br>
-    Islaidu tipai ID: <input type="number" name="islaiduTipaiId" > <br><br>
-     <table>
-            <thead>
-                <tr> <b style="font-size: 20px;">Islaidu tipu lentele</b>
-                    <th style="border: 1px solid black;">ID</th>
-                    <th>Pavadinimas</th>
+    <form action="/cekiai" method="POST" >
+    Data: <input type="date" name="cekioData" ><br><br>
+    Pardaveju ID: <input type="number" name="cekioPardavejai" ><br><br>
+    <table>
+                    <tr> <b style="font-size: 20px;">Pardaveju sarasas</b>
                 </tr>
-                </thead>
-                <tbody>
-            {{#each islaiduTipai}}
+            {{#each pardavejai}}
             <tr>
-                <td> <a href="/islaiduTipasOne/{{id}}">{{id}}</a></td>
-                <td> <a href="/islaiduTipasOne/{{id}}">{{pavadinimas}}</a></td>
+                <td> <a href="/pardavejas/{{id}}">{{id}}</a></td>
+                <td> <a href="/pardavejas/{{id}}">{{pavadinimas}}</a></td>
                 <td> {{alga}}</td>
-                 </td>
                 </tr>
             {{/each}}
-            </table> <br> 
+            </table>
+            </tbody>
+    Mokejimu tipu ID: <input type="number" name="cekioMokejimoTipai" > <br><br>
+
+    <table>
+        <tr> <b style="font-size: 20px;">Pardaveju sarasas</b>
+            <tr>
+    {{#each mokejimuTipai}}
+                <td> <a href="/mokejimuTipasOne/{{id}}">{{id}}</a></td>
+                <td> <a href="/mokejimuTipasOne/{{id}}">{{pavadinimas}}</a></td>
+                </tr>
+            {{/each}}
+    </table> <br>
+ 
     <input type="submit" value="Save">
     </form>
-    <a href="/prekes">Go back</a>
+    <a href="/cekiai">Go back</a>
